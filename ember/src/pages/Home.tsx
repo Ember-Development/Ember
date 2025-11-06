@@ -1,30 +1,32 @@
 import Navbar from "../components/Navbar";
 import SplineHero from "../components/SplineHero";
+import HeroFX from "../components/decor/HeroFX";
+import LogoCloud from "../components/sections/LogoCloud";
+import ServicesSection from "../components/sections/ServiceSection";
+import ProcessSteps from "../components/sections/ProcessSteps";
+import CaseStudies from "../components/sections/CaseStudies";
+import PricingSection from "../components/sections/PricingSection";
+import CTABand from "../components/sections/CTASection";
+import Footer from "../components/Footer";
+import Reveal from "../components/Reveal";
 
 export default function Home() {
   return (
-    <div className="w-full">
-      <Navbar
-        brand="Ember"
-        links={[
-          { label: "Services", to: "/services" },
-          { label: "Work", to: "/work" },
-          { label: "Pricing", to: "/pricing" },
-          { label: "About", to: "/about" },
-          { label: "Contact", to: "/contact" },
-        ]}
-      />
+    <>
+      <div className="relative">
+        <HeroFX />
+        <SplineHero>
+          {/* your hero title/desc/buttons remain here */}
+        </SplineHero>
+      </div>
+        <Reveal><LogoCloud /></Reveal>
 
-      <SplineHero />
-
-      {/* Example content below hero so you can scroll */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold">What we do</h2>
-        <p className="mt-2 text-gray-600">
-          Web development, mobile apps, maintenance, and DevOps for modern
-          teams.
-        </p>
-      </section>
-    </div>
+      <ServicesSection />
+      <ProcessSteps />
+      <CaseStudies />
+      <PricingSection />
+      <CTABand />
+      <Footer />
+    </>
   );
 }

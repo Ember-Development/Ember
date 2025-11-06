@@ -4,8 +4,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
-// Lazy imports keep initial bundle tiny
-const Home = React.lazy(() => import("./pages/Home"));
+// Bomber Collective pages
+const BomberCollectiveHome = React.lazy(() => import("./pages/BomberCollective/Home"));
+
+// Ember pages
+const EmberLayout = React.lazy(() => import("./pages/Ember/EmberLayout"));
+const EmberHome = React.lazy(() => import("./pages/Ember/Home"));
 const Services = React.lazy(() => import("./pages/Services"));
 const Web = React.lazy(() => import("./pages/Web"));
 const Mobile = React.lazy(() => import("./pages/Mobile"));
@@ -18,6 +22,8 @@ const About = React.lazy(() => import("./pages/contact/About"));
 const Blog = React.lazy(() => import("./pages/contact/Blog"));
 const Resources = React.lazy(() => import("./pages/contact/Resources"));
 const Contact = React.lazy(() => import("./pages/contact/Contact"));
+
+// Legal & misc
 const Privacy = React.lazy(() => import("./pages/contact/Privacy"));
 const Terms = React.lazy(() => import("./pages/contact/Terms"));
 const Cookies = React.lazy(() => import("./pages/contact/Cookies"));
@@ -30,30 +36,40 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Home /> },
+      // Bomber Collective home
+      { index: true, element: <BomberCollectiveHome /> },
 
-      // Services
-      { path: "services", element: <Services /> },
-      { path: "services/web", element: <Web /> },
-      { path: "services/mobile", element: <Mobile /> },
-      { path: "services/maintenance", element: <Maintenance /> },
-      { path: "services/devops", element: <DevOps /> },
-      { path: "services/facelift", element: <Facelift /> },
+      // Ember product routes (nested)
+      {
+        path: "ember",
+        element: <EmberLayout />,
+        children: [
+          { index: true, element: <EmberHome /> },
 
-      // Company & marketing
-      { path: "work", element: <Work /> },
-      { path: "pricing", element: <Pricing /> },
-      { path: "about", element: <About /> },
-      { path: "blog", element: <Blog /> },
-      { path: "resources", element: <Resources /> },
-      { path: "contact", element: <Contact /> },
+          // Services
+          { path: "services", element: <Services /> },
+          { path: "services/web", element: <Web /> },
+          { path: "services/mobile", element: <Mobile /> },
+          { path: "services/maintenance", element: <Maintenance /> },
+          { path: "services/devops", element: <DevOps /> },
+          { path: "services/facelift", element: <Facelift /> },
 
-      // Legal
-      { path: "privacy", element: <Privacy /> },
-      { path: "terms", element: <Terms /> },
-      { path: "cookies", element: <Cookies /> },
-      { path: "accessibility", element: <Accessibility /> },
-      { path: "data-deletion", element: <DataDeletion /> },
+          // Company & marketing
+          { path: "work", element: <Work /> },
+          { path: "pricing", element: <Pricing /> },
+          { path: "about", element: <About /> },
+          { path: "blog", element: <Blog /> },
+          { path: "resources", element: <Resources /> },
+          { path: "contact", element: <Contact /> },
+
+          // Legal
+          { path: "privacy", element: <Privacy /> },
+          { path: "terms", element: <Terms /> },
+          { path: "cookies", element: <Cookies /> },
+          { path: "accessibility", element: <Accessibility /> },
+          { path: "data-deletion", element: <DataDeletion /> },
+        ],
+      },
 
       // 404
       { path: "*", element: <NotFound /> },

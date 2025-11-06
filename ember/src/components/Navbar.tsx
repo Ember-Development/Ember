@@ -1,4 +1,4 @@
-import { useState, type JSX } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
@@ -7,16 +7,45 @@ type LinkItem = { label: string; to: string };
 export default function Navbar({
   brand = "Ember",
   links = [],
+  contactLink = "/contact",
 }: {
   brand?: string | JSX.Element;
   links?: LinkItem[];
+  contactLink?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 8); // small threshold feels snappier
+        ticking.current = false;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // While mobile menu is open, keep the bar glassy (readable).
+  const glassOn = scrolled || open;
 
   return (
     <>
-      {/* Glassy top bar */}
-      <nav className="sticky top-0 z-50 w-full border-b border-black/5 bg-white/70 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] backdrop-blur-md dark:bg-neutral-900/60">
+      {/* Top bar */}
+      <nav
+        className={[
+          "sticky top-0 z-50 w-full transition-all duration-300",
+          // When not scrolled: truly transparent, no border/shadow.
+          glassOn
+            ? " bg-white/60 backdrop-blur-md "
+            : "bg-transparent",
+        ].join(" ")}
+      >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Brand */}
           <div className="text-2xl font-semibold tracking-tight">
@@ -36,10 +65,14 @@ export default function Navbar({
                 {l.label}
               </NavItem>
             ))}
-            {/* optional CTA to mirror your core navbar */}
             <a
-              href="/contact"
-              className="rounded-lg border border-black/10 bg-white/70 px-3 py-1.5 text-sm font-medium text-neutral-900 shadow-sm backdrop-blur hover:bg-white/90 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+              href={contactLink}
+              className={[
+                "rounded-lg px-3 py-1.5 text-sm font-medium shadow-sm transition",
+                glassOn
+                  ? "border border-black/10 bg-white/70 text-neutral-900 backdrop-blur hover:bg-white/90 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+                  : "border border-transparent bg-black/80 text-white hover:bg-black",
+              ].join(" ")}
             >
               Get a quote
             </a>
@@ -50,7 +83,12 @@ export default function Navbar({
             aria-label="Toggle navigation"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center rounded-lg border border-black/10 bg-white/60 shadow-sm backdrop-blur transition hover:bg-white/80 md:hidden dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/15"
+            className={[
+              "grid h-10 w-10 place-items-center rounded-lg border shadow-sm transition md:hidden",
+              glassOn
+                ? "border-black/10 bg-white/60 backdrop-blur hover:bg-white/80 dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/15"
+                : "border-white/20 bg-black/40 text-white hover:bg-black/60",
+            ].join(" ")}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -84,7 +122,7 @@ export default function Navbar({
               </NavItem>
             ))}
             <a
-              href="/contact"
+              href={contactLink}
               onClick={() => setOpen(false)}
               className="mt-2 rounded-lg border border-black/10 bg-white/70 px-3 py-2 text-sm font-medium text-neutral-900 shadow-sm backdrop-blur hover:bg-white/90 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
             >
@@ -115,7 +153,7 @@ function NavItem({
       className={({ isActive }) =>
         [
           "relative text-sm font-medium transition",
-          "text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white",
+          "text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white",
           isActive && "text-neutral-900 dark:text-white",
         ]
           .filter(Boolean)
@@ -125,7 +163,6 @@ function NavItem({
       {({ isActive }) => (
         <>
           {children}
-          {/* subtle active underline like the core nav */}
           <span
             className={[
               "absolute -bottom-2 left-0 h-[2px] w-full rounded bg-neutral-900/70 transition dark:bg-white/80",

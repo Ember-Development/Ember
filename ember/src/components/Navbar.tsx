@@ -42,15 +42,18 @@ export default function Navbar({
           "sticky top-0 z-50 w-full transition-all duration-300",
           // When not scrolled: truly transparent, no border/shadow.
           glassOn
-            ? " bg-white/60 backdrop-blur-md "
+            ? "border-b border-[var(--color-surface-border)] bg-black/40 backdrop-blur-md"
             : "bg-transparent",
         ].join(" ")}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Brand */}
           <div className="text-2xl font-semibold tracking-tight">
             {typeof brand === "string" ? (
-              <NavLink to="/" className="hover:opacity-90">
+              <NavLink
+                to="/"
+                className="text-gold-gradient transition-opacity hover:opacity-90"
+              >
                 {brand}
               </NavLink>
             ) : (
@@ -65,15 +68,7 @@ export default function Navbar({
                 {l.label}
               </NavItem>
             ))}
-            <a
-              href={contactLink}
-              className={[
-                "rounded-lg px-3 py-1.5 text-sm font-medium shadow-sm transition",
-                glassOn
-                  ? "border border-black/10 bg-white/70 text-neutral-900 backdrop-blur hover:bg-white/90 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
-                  : "border border-transparent bg-black/80 text-white hover:bg-black",
-              ].join(" ")}
-            >
+            <a href={contactLink} className="btn-gold text-sm">
               Get a quote
             </a>
           </div>
@@ -86,8 +81,8 @@ export default function Navbar({
             className={[
               "grid h-10 w-10 place-items-center rounded-lg border shadow-sm transition md:hidden",
               glassOn
-                ? "border-black/10 bg-white/60 backdrop-blur hover:bg-white/80 dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/15"
-                : "border-white/20 bg-black/40 text-white hover:bg-black/60",
+                ? "border-[var(--color-surface-border)] bg-[var(--color-surface)] text-white backdrop-blur hover:bg-[var(--color-surface-hover)]"
+                : "border-[var(--color-primary)]/30 bg-black/40 text-white hover:bg-black/60",
             ].join(" ")}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -103,18 +98,20 @@ export default function Navbar({
       >
         {/* scrim */}
         <div
-          className={`absolute inset-0 bg-black/40 transition-opacity ${
+          className={`absolute inset-0 bg-black/60 transition-opacity ${
             open ? "opacity-100" : "opacity-0"
           }`}
           onClick={() => setOpen(false)}
         />
         {/* panel */}
         <aside
-          className={`absolute top-0 left-0 h-full w-72 border-r border-black/10 bg-white/80 p-6 shadow-xl backdrop-blur-xl transition-transform duration-300 dark:border-white/10 dark:bg-neutral-900/80 ${
+          className={`absolute top-0 left-0 h-full w-72 border-r border-[var(--color-surface-border)] bg-black/80 p-6 shadow-xl backdrop-blur-xl transition-transform duration-300 ${
             open ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <div className="mb-6 text-lg font-semibold">Menu</div>
+          <div className="text-gold-gradient mb-6 text-lg font-semibold">
+            Menu
+          </div>
           <nav className="flex flex-col gap-4">
             {links.map((l) => (
               <NavItem key={l.to} to={l.to} onClick={() => setOpen(false)}>
@@ -124,7 +121,7 @@ export default function Navbar({
             <a
               href={contactLink}
               onClick={() => setOpen(false)}
-              className="mt-2 rounded-lg border border-black/10 bg-white/70 px-3 py-2 text-sm font-medium text-neutral-900 shadow-sm backdrop-blur hover:bg-white/90 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+              className="btn-gold mt-2 text-center text-sm"
             >
               Get a quote
             </a>
@@ -153,8 +150,8 @@ function NavItem({
       className={({ isActive }) =>
         [
           "relative text-sm font-medium transition",
-          "text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white",
-          isActive && "text-neutral-900 dark:text-white",
+          "text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]",
+          isActive && "text-[var(--color-primary)]",
         ]
           .filter(Boolean)
           .join(" ")
@@ -165,7 +162,7 @@ function NavItem({
           {children}
           <span
             className={[
-              "absolute -bottom-2 left-0 h-[2px] w-full rounded bg-neutral-900/70 transition dark:bg-white/80",
+              "absolute -bottom-2 left-0 h-[2px] w-full rounded bg-gradient-to-r from-[var(--color-gold-400)] to-[var(--color-gold-600)] transition",
               isActive ? "opacity-100" : "opacity-0",
             ].join(" ")}
           />

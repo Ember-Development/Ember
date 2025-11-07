@@ -5,7 +5,12 @@ import App from "./App";
 import "./index.css";
 
 // Bomber Collective pages
-const BomberCollectiveHome = React.lazy(() => import("./pages/BomberCollective/Home"));
+const BomberCollectiveHome = React.lazy(
+  () => import("./pages/BomberCollective/Home"),
+);
+
+// Theme Demo
+const ThemeDemo = React.lazy(() => import("./components/ThemeDemo"));
 
 // Ember pages
 const EmberLayout = React.lazy(() => import("./pages/Ember/EmberLayout"));
@@ -38,6 +43,9 @@ const router = createBrowserRouter([
     children: [
       // Bomber Collective home
       { index: true, element: <BomberCollectiveHome /> },
+
+      // Theme demo (standalone)
+      { path: "theme-demo", element: <ThemeDemo /> },
 
       // Ember product routes (nested)
       {

@@ -18,9 +18,6 @@ export default function EmberHome() {
           {/* your hero title/desc/buttons remain here */}
         </SplineHero>
       </div>
-      <Reveal>
-        <LogoCloud />
-      </Reveal>
 
       <ServicesSection />
       <ProcessSteps />

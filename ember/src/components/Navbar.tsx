@@ -42,7 +42,7 @@ export default function Navbar({
           "sticky top-0 z-50 w-full transition-all duration-300",
           // When not scrolled: truly transparent, no border/shadow.
           glassOn
-            ? "border-b border-[var(--color-surface-border)] bg-black/40 backdrop-blur-md"
+            ? " border-[var(--color-surface-border)] bg-black/40 backdrop-blur-md"
             : "bg-transparent",
         ].join(" ")}
       >

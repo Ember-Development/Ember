@@ -5,7 +5,10 @@ const DEFAULT_LOGOS: Logo[] = [
   { src: "/logos/TCS.png", alt: "Triple Crown Sports" },
   { src: "/logos/Bombers.png", alt: "Bombers Fastpitch" },
   { src: "/logos/BaseballAlliance.png", alt: "Baseball Alliance" },
-  { src: "/logos/Goatnet-Logo-full-black-transparent-1024x567.png", alt: "Goatnet" },
+  {
+    src: "/logos/Goatnet-Logo-full-black-transparent-1024x567.png",
+    alt: "Goatnet",
+  },
   { src: "/logos/Chart-IQ-blue.png", alt: "ChartIQ" },
 ];
 
@@ -31,8 +34,8 @@ function LogoImg({ l, heightClass }: { l: Logo; heightClass: string }) {
 
 export default function LogoCloud({
   items = DEFAULT_LOGOS,
-  heightClass = "h-12 md:h-16",
-  gapClass = "gap-16 md:gap-20 lg:gap-24",
+  heightClass = "h-12 md:h-14",
+  gapClass = "gap-14 md:gap-16 lg:gap-20",
   speedSec = 28,
 }: {
   items?: Logo[];
@@ -44,25 +47,14 @@ export default function LogoCloud({
   const track = [...items, ...items];
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-12" aria-label="Trusted by">
-      <p className="text-center text-sm text-neutral-500">
+    <section className="mx-auto max-w-7xl px-6 py-16" aria-label="Trusted by">
+      <p className="text-center text-xs font-medium tracking-[0.18em] text-neutral-500 uppercase">
         Trusted by teams big &amp; small
       </p>
 
-      <div
-        className="
-          relative mt-6 overflow-hidden
-          [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
-          dark:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]
-        "
-      >
+      <div className="relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] dark:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
         <ul
-          className={`
-            flex w-[200%] items-center ${gapClass}
-            motion-safe:animate-marquee-x motion-reduce:animate-none
-            hover:[animation-play-state:paused]
-            will-change-transform
-          `}
+          className={`flex w-[200%] items-center ${gapClass} motion-safe:animate-marquee-x will-change-transform hover:[animation-play-state:paused] motion-reduce:animate-none`}
           style={{ ["--marquee-duration" as any]: `${speedSec}s` }}
         >
           {track.map((l, i) => (

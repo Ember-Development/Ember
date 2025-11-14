@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -11,7 +11,7 @@
 @theme {
   /* Fonts */
   --font-sans:
-    "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Base Colors */
   --color-bg-primary: #ffffff;
@@ -23,14 +23,14 @@
   --color-gold-200: #fef08a;
   --color-gold-300: #fde047;
   --color-gold-400: #facc15;
-  --color-gold-500: #D4AF37;
+  --color-gold-500: #d4af37;
   --color-gold-600: #ca9e06;
   --color-gold-700: #a17906;
   --color-gold-800: #854d0e;
   --color-gold-900: #713f12;
 
   /* Primary gold (main accent) */
-  --color-primary: #D4AF37;
+  --color-primary: #d4af37;
   --color-primary-hover: #e6c348;
   --color-primary-dark: #b8962f;
 
@@ -53,16 +53,12 @@
 
 :root {
   /* Background gradient */
-  --gradient-primary: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    #f9fafb 100%
-  );
+  --gradient-primary: linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%);
 
   /* Gold gradients for effects - Classic Gold */
   --gradient-gold: linear-gradient(
     135deg,
-    #D4AF37 0%,
+    #d4af37 0%,
     #e6c348 50%,
     #b8962f 100%
   );
@@ -79,8 +75,7 @@
   --shadow-lg:
     0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-gold:
     0 0 20px rgba(212, 175, 55, 0.15), 0 0 40px rgba(212, 175, 55, 0.08);
 }
@@ -88,17 +83,20 @@
 /* Apply background to body and html */
 * {
   font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 html {
   scroll-behavior: smooth;
   font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
+  font-weight: 600;
   background: #ffffff;
   background-attachment: fixed;
   color: var(--color-text-primary);
@@ -108,6 +106,7 @@ body {
 #root {
   min-height: 100vh;
   font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 @keyframes marquee {
@@ -185,5 +184,3 @@ body {
     transform: translateY(0) translateX(0);
   }
 }
-
-

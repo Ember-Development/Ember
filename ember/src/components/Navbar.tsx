@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type JSX } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-type LinkItem = { label: string; to: string };
+type LinkItem = { label: string; to: string; isAnchor?: boolean };
 
 export default function Navbar({
   brand = "Ember",
@@ -42,7 +42,7 @@ export default function Navbar({
           "sticky top-0 z-50 w-full transition-all duration-300",
           // When not scrolled: truly transparent, no border/shadow.
           glassOn
-            ? " border-[var(--color-surface-border)] bg-black/40 backdrop-blur-md"
+            ? "border-[var(--color-surface-border)] bg-black/40 backdrop-blur-md"
             : "bg-transparent",
         ].join(" ")}
       >
@@ -64,7 +64,7 @@ export default function Navbar({
           {/* Desktop links */}
           <div className="hidden items-center gap-7 md:flex">
             {links.map((l) => (
-              <NavItem key={l.to} to={l.to}>
+              <NavItem key={l.to} to={l.to} isAnchor={l.isAnchor}>
                 {l.label}
               </NavItem>
             ))}
@@ -114,7 +114,12 @@ export default function Navbar({
           </div>
           <nav className="flex flex-col gap-4">
             {links.map((l) => (
-              <NavItem key={l.to} to={l.to} onClick={() => setOpen(false)}>
+              <NavItem
+                key={l.to}
+                to={l.to}
+                isAnchor={l.isAnchor}
+                onClick={() => setOpen(false)}
+              >
                 {l.label}
               </NavItem>
             ))}
@@ -136,13 +141,74 @@ export default function Navbar({
 
 function NavItem({
   to,
+  isAnchor = false,
   children,
   onClick,
 }: {
   to: string;
+  isAnchor?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
 }) {
+  const [activeAnchor, setActiveAnchor] = useState("");
+
+  useEffect(() => {
+    if (!isAnchor) return;
+
+    const handleScroll = () => {
+      const sections = document.querySelectorAll("section[id]");
+      let current = "";
+
+      sections.forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop <= 100 && sectionTop >= -section.clientHeight) {
+          current = `#${section.id}`;
+        }
+      });
+
+      setActiveAnchor(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isAnchor]);
+
+  if (isAnchor) {
+    const isActive = activeAnchor === to;
+
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      const element = document.querySelector(to);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      onClick?.();
+    };
+
+    return (
+      <a
+        href={to}
+        onClick={handleClick}
+        className={[
+          "relative text-sm font-medium transition",
+          "text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]",
+          isActive && "text-[var(--color-primary)]",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        {children}
+        <span
+          className={[
+            "absolute -bottom-2 left-0 h-[2px] w-full rounded bg-gradient-to-r from-[var(--color-gold-400)] to-[var(--color-gold-600)] transition",
+            isActive ? "opacity-100" : "opacity-0",
+          ].join(" ")}
+        />
+      </a>
+    );
+  }
+
   return (
     <NavLink
       to={to}

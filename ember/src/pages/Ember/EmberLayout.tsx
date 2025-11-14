@@ -6,11 +6,11 @@ export default function EmberLayout() {
     <div className="">
       <SubNavbar
         links={[
-          { label: "Services", to: "/ember/services" },
-          { label: "Work", to: "/ember/work" },
-          { label: "Pricing", to: "/ember/pricing" },
-          { label: "About", to: "/ember/about" },
-          { label: "Contact", to: "/ember/contact" },
+          { label: "About", to: "#about", isAnchor: true },
+          { label: "Services", to: "#services", isAnchor: true },
+          { label: "Work", to: "#work", isAnchor: true },
+          { label: "Pricing", to: "#pricing", isAnchor: true },
+          { label: "Contact", to: "#contact", isAnchor: true },
         ]}
       />
       <div className="h-full w-full text-center">
@@ -19,4 +19,3 @@ export default function EmberLayout() {
     </div>
   );
 }
-

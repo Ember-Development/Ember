@@ -5,6 +5,15 @@ import HeroFX from "./decor/HeroFX";
 export default function SplineSplitHero() {
   return (
     <section className="relative h-[100vh] w-full overflow-hidden bg-white">
+      {/* Gold glow at top */}
+      <div
+        className="pointer-events-none absolute inset-x-0 -top-40 -z-10 h-80 opacity-80"
+        style={{
+          background:
+            "radial-gradient(circle at top, rgba(212,175,55,0.12), transparent 70%)",
+        }}
+      />
+
       {/* Background Spline */}
       <div className="absolute inset-0">
         <Spline
@@ -24,32 +33,51 @@ export default function SplineSplitHero() {
 
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <span className="mb-3 inline-flex rounded-full border border-neutral-200 bg-white/70 px-3 py-1 text-xs font-medium text-neutral-600 backdrop-blur">
-          Ember • Web & Mobile
-        </span>
+        <div className="inline-flex items-center gap-3 rounded-full border border-black/5 bg-white/70 px-4 py-1 shadow-sm backdrop-blur-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-primary)]" />
+          <span className="text-xs font-medium tracking-[0.16em] text-neutral-600 uppercase">
+            Ember • Web & Mobile
+          </span>
+        </div>
 
-        <h1 className="text-4xl font-extrabold tracking-tight text-neutral-900 md:text-6xl">
-          Build fast.
-          <br /> Ship faster.
+        <h1 className="mt-8 text-4xl leading-tight font-semibold tracking-tight text-neutral-900 md:text-6xl lg:text-7xl">
+          Build fast.{" "}
+          <span className="bg-gradient-to-r from-[#D4AF37] to-black bg-clip-text text-transparent">
+            Ship faster.
+          </span>
         </h1>
 
-        <p className="mt-4 max-w-md text-pretty text-neutral-600 md:text-lg">
-          Web &amp; mobile apps with Expo, DevOps that doesn’t break, and
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-neutral-600 md:text-lg">
+          Web &amp; mobile apps with Expo, DevOps that doesn't break, and
           maintenance you can rely on.
         </p>
 
-        <div className="mt-6 flex gap-3">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <a
             href="/ember/contact"
-            className="inline-flex items-center rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+            className="inline-flex items-center justify-center rounded-full bg-[var(--color-primary)] px-7 py-3 text-sm font-semibold text-black shadow-md shadow-[rgba(0,0,0,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-lg"
           >
-            Get a quote <ArrowRight className="ml-2 h-4 w-4" />
+            Get a quote
+            <ArrowRight className="ml-2 h-4 w-4" />
           </a>
           <a
             href="/ember/work"
-            className="inline-flex items-center rounded-lg border border-neutral-300 bg-white/70 px-4 py-2 text-sm font-medium text-neutral-900 backdrop-blur hover:bg-white/90"
+            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 transition-all hover:text-[var(--color-primary)]"
           >
             See our work
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.8}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
           </a>
         </div>
       </div>

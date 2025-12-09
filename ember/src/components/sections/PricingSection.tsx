@@ -16,15 +16,28 @@ type Tier = {
 
 const TIERS: Tier[] = [
   {
+    name: "Mobile App Build",
+    price: "from $10k",
+    points: [
+      "Expo + TypeScript",
+      "iOS & Android",
+      "App Store deployment",
+      "1 mo support",
+    ],
+    cta: "/pricing#mobile",
+    accent: "bg-[#D4AF37]",
+  },
+  {
     name: "Website Build",
     price: "from $5k",
     points: [
-      "React + Tailwind",
+      "React Vite - Node.js",
       "Up to 7 pages",
       "CMS + CI/CD",
       "1 mo support",
     ],
     cta: "/pricing#website",
+    badge: "Most popular",
     accent: "bg-[#D4AF37]",
   },
   {
@@ -38,17 +51,16 @@ const TIERS: Tier[] = [
     ],
     cta: "/pricing#maintenance",
     featured: true,
-    badge: "Most popular",
     accent: "bg-[#D4AF37]",
     note: "Cancel anytime. Overage billed hourly.",
   },
-  {
-    name: "Infra & DevOps",
-    price: "from $7.5k",
-    points: ["IaC setup", "Pipelines", "Observability", "Handoff playbooks"],
-    cta: "/pricing#infra",
-    accent: "bg-[#D4AF37]",
-  },
+  // {
+  //   name: "Infra & DevOps",
+  //   price: "from $7.5k",
+  //   points: ["IaC setup", "Pipelines", "Observability", "Handoff playbooks"],
+  //   cta: "/pricing#infra",
+  //   accent: "bg-[#D4AF37]",
+  // },
 ];
 
 export default function PricingSection({

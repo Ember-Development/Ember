@@ -68,9 +68,24 @@ export default function Navbar({
                 {l.label}
               </NavItem>
             ))}
-            <a href={contactLink} className="btn-gold text-sm">
-              Get a quote
-            </a>
+            {contactLink.startsWith("#") ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.querySelector(contactLink);
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                className="btn-gold text-sm"
+              >
+                Get a quote
+              </button>
+            ) : (
+              <a href={contactLink} className="btn-gold text-sm">
+                Get a quote
+              </a>
+            )}
           </div>
 
           {/* Mobile toggle */}
@@ -123,13 +138,29 @@ export default function Navbar({
                 {l.label}
               </NavItem>
             ))}
-            <a
-              href={contactLink}
-              onClick={() => setOpen(false)}
-              className="btn-gold mt-2 text-center text-sm"
-            >
-              Get a quote
-            </a>
+            {contactLink.startsWith("#") ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  const el = document.querySelector(contactLink);
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                className="btn-gold mt-2 text-center text-sm"
+              >
+                Get a quote
+              </button>
+            ) : (
+              <a
+                href={contactLink}
+                onClick={() => setOpen(false)}
+                className="btn-gold mt-2 text-center text-sm"
+              >
+                Get a quote
+              </a>
+            )}
           </nav>
         </aside>
       </div>
@@ -173,6 +204,28 @@ function NavItem({
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isAnchor]);
+
+  // Check if it's an external URL
+  const isExternal = to.startsWith("http://") || to.startsWith("https://");
+
+  if (isExternal) {
+    return (
+      <a
+        href={to}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+        className={[
+          "relative text-sm font-medium transition",
+          "text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        {children}
+      </a>
+    );
+  }
 
   if (isAnchor) {
     const isActive = activeAnchor === to;

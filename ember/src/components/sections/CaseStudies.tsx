@@ -57,11 +57,11 @@ const DEFAULTS: CaseItem[] = [
   },
   {
     title: "Bomber Mobile",
-    img: "https://res.cloudinary.com/duwgrvngn/image/upload/v1763097295/IMG_4754_tm46zc.png",
+    img: "https://res.cloudinary.com/dpiwfss82/image/upload/v1765314096/Bluebloods/app_qhb4ha.jpg",
     blurb:
       "Cross-platform mobile app for sports team management, media, and communication.",
     tags: ["Expo", "React Native", "Push"],
-    metric: "2000+ Users",
+    metric: "2300+ Users",
     accent: "bg-[#D4AF37]",
     href: "https://apps.apple.com/tr/app/bomber-fastpitch/id6744776521sa",
   },
@@ -145,12 +145,12 @@ function RailCard({
   item: CaseItem;
   isMobile?: boolean;
 }) {
-  const ratio = isMobile ? "aspect-[9/19.5]" : "aspect-[16/10]";
+  const ratio = isMobile ? "aspect-[9/19.5]" : "aspect-[4/3]";
 
   return (
     <CardWrapper
       item={item}
-      outerClass="min-w-[86%] snap-center sm:min-w-[70%]"
+      outerClass="min-w-[86%] max-h-[320px] snap-center sm:min-w-[70%] sm:max-h-[400px]"
     >
       <Media item={item} ratioClass={ratio} isMobile={isMobile} />
     </CardWrapper>
@@ -330,7 +330,8 @@ function Media({
   }
 
   // Default (web / dashboard) media
-  const objectFit = "object-cover";
+  // Use object-cover for better fit, with object-center for better positioning
+  const objectFit = "object-cover object-center";
 
   return (
     <div

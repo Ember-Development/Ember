@@ -59,8 +59,8 @@ export default function AboutSection() {
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-4">
             {[
-              { value: "40+", label: "Projects & Features Shipped" },
-              { value: "10+", label: "Active Organizations" },
+              { value: "10+", label: "Projects & Features Shipped" },
+              { value: "5+", label: "Active Organizations" },
               { value: "98", label: "Lighthouse Score (Best Case)" },
               { value: "<24h", label: "Avg. Client Response Time" },
             ].map((stat) => (

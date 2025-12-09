@@ -1,6 +1,5 @@
 import SplineHero from "../../components/SplineHero";
 import HeroFX from "../../components/decor/HeroFX";
-import LogoCloud from "../../components/sections/LogoCloud";
 import AboutSection from "../../components/sections/AboutSection";
 import ServicesSection from "../../components/sections/ServiceSection";
 import ProcessSteps from "../../components/sections/ProcessSteps";
@@ -19,7 +18,6 @@ export default function EmberHome() {
         </SplineHero>
       </div>
 
-      <LogoCloud />
       <AboutSection />
       <ServicesSection />
       <ProcessSteps />

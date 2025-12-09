@@ -17,10 +17,12 @@ export default function App() {
           </Link>
         }
         links={[
+          { label: "Home", to: "/" },
+          { label: "BlueBloods NIL", to: "https://www.bluebloodsnil.com" },
+          // { label: "Recruit Bombers", to: "#" }, // External link - update with actual URL
           { label: "Ember", to: "/ember" },
-          { label: "NIL", to: "#" }, // External link - update with actual URL
-          { label: "Recruiting", to: "#" }, // External link - update with actual URL
         ]}
+        contactLink="#contact"
       />
       <div className="h-full w-full">
         <Outlet />

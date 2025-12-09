@@ -184,3 +184,17 @@ body {
     transform: translateY(0) translateX(0);
   }
 }
+
+/* marquee animations for logos */
+@keyframes partner-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-partner-marquee {
+  animation: partner-marquee 40s linear infinite;
+}

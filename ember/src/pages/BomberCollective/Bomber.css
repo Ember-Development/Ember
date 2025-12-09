@@ -1,0 +1,357 @@
+:root {
+  --bc-gold: #d4af37;
+  --bc-gold-light: #f4e9cc;
+  --bc-black: #111111;
+  --bc-gray-dark: #444444;
+  --bc-gray-light: #f5f5f7;
+  --bc-border: #e1e1e1;
+  --bc-white: #ffffff;
+  --bc-max-width: 1200px;
+  --bc-font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+/* Global Resets */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bc-white);
+  color: var(--bc-black);
+  font-family: var(--bc-font-sans);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utilities */
+.bc-container {
+  max-width: var(--bc-max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.bc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+}
+
+.bc-btn-primary {
+  background-color: var(--bc-gold);
+  color: var(--bc-black);
+}
+
+.bc-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+.bc-btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--bc-border);
+  color: var(--bc-black);
+}
+
+.bc-btn-secondary:hover {
+  border-color: var(--bc-black);
+}
+
+/* --- HERO SECTION --- */
+.bc-hero {
+  padding: 8rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bc-hero-content {
+  max-width: 800px;
+}
+
+.bc-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bc-gold);
+  margin-bottom: 1.5rem;
+  background: var(--bc-gold-light);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.bc-hero h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.bc-highlight {
+  color: var(--bc-gold);
+}
+
+.bc-hero p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--bc-gray-dark);
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+}
+
+.bc-hero-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* --- PARTNERS --- */
+.bc-partners {
+  padding: 3rem 0;
+  border-top: 1px solid var(--bc-border);
+  border-bottom: 1px solid var(--bc-border);
+  background-color: #fafafa;
+}
+
+.bc-partners-scroll {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  opacity: 0.6;
+}
+
+.bc-partner-logo {
+  height: 2.5rem;
+  width: auto;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.bc-partner-logo:hover {
+  filter: grayscale(0%);
+}
+
+/* --- SUITE SECTION (Interactive) --- */
+.bc-suite {
+  padding: 6rem 0;
+  background-color: var(--bc-white);
+}
+
+.bc-section-header {
+  margin-bottom: 4rem;
+}
+
+.bc-section-header h2 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.bc-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--bc-border);
+  padding-bottom: 1px;
+}
+
+.bc-tab-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--bc-gray-dark);
+  padding: 0 0 1rem 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.bc-tab-btn.active {
+  color: var(--bc-black);
+}
+
+.bc-tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--bc-gold);
+}
+
+/* Suite Grid Layout */
+.bc-suite-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Feature List (Left) */
+.bc-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bc-feature-item {
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  padding: 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bc-feature-item:hover {
+  background-color: var(--bc-gray-light);
+}
+
+.bc-feature-item.active {
+  background-color: var(--bc-white);
+  border-color: var(--bc-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.bc-feature-tagline {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--bc-gold);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.bc-feature-title {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--bc-black);
+  margin-bottom: 0.5rem;
+}
+
+.bc-feature-highlight {
+  font-size: 0.9rem;
+  color: var(--bc-gray-dark);
+  line-height: 1.5;
+}
+
+/* Feature Detail (Right - Sticky) */
+.bc-feature-detail {
+  position: sticky;
+  top: 2rem;
+  background-color: var(--bc-gray-light);
+  border-radius: 24px;
+  padding: 3rem;
+}
+
+.bc-detail-desc {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.bc-detail-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bc-detail-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--bc-gray-dark);
+}
+
+.bc-check {
+  color: var(--bc-gold);
+  font-weight: bold;
+}
+
+/* --- CONTACT --- */
+.bc-contact {
+  padding: 6rem 0;
+  background-color: var(--bc-white);
+}
+
+.bc-contact-card {
+  background-color: var(--bc-black);
+  color: var(--bc-white);
+  border-radius: 24px;
+  padding: 4rem 2rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.bc-contact-card h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.bc-contact-card p {
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.bc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.bc-input {
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #222;
+  color: white;
+  font-size: 1rem;
+}
+
+.bc-submit {
+  background-color: var(--bc-gold);
+  color: var(--bc-black);
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .bc-hero h1 {
+    font-size: 2.5rem;
+  }
+  .bc-suite-grid {
+    grid-template-columns: 1fr;
+  }
+  .bc-feature-detail {
+    position: static;
+    margin-top: 2rem;
+  }
+  .bc-partners-scroll {
+    justify-content: center;
+  }
+}

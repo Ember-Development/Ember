@@ -1,5 +1,5 @@
-import { X } from "lucide-react";
-import { type FormEvent, useEffect } from "react";
+import { X, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { type FormEvent, useEffect, useState } from "react";
 
 type ContactModalProps = {
   isOpen: boolean;
@@ -12,6 +12,10 @@ export default function ContactModal({
   onClose,
   selectedService,
 }: ContactModalProps) {
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+
   // Close on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -21,6 +25,8 @@ export default function ContactModal({
       document.addEventListener("keydown", handleEscape);
       // Prevent body scroll when modal is open
       document.body.style.overflow = "hidden";
+      // Reset status when modal opens
+      setSubmitStatus("idle");
     }
     return () => {
       document.removeEventListener("keydown", handleEscape);
@@ -28,13 +34,50 @@ export default function ContactModal({
     };
   }, [isOpen, onClose]);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Add your form submission logic here (e.g., send to backend API, email service, etc.)
-    alert(
-      "Thanks for reaching out! We'll review your project details and get back to you within 24-48 hours.",
-    );
-    onClose();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    setSubmitStatus("submitting");
+
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/ajax/gunnarsmith3@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.get("name"),
+            email: formData.get("email"),
+            company: formData.get("company"),
+            phone: formData.get("phone"),
+            service: formData.get("service") || selectedService,
+            budget: formData.get("budget"),
+            timeline: formData.get("timeline"),
+            message: formData.get("message"),
+            _subject: `New Inquiry: ${formData.get("service") || selectedService || "General"}`,
+          }),
+        },
+      );
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        form.reset();
+        // Auto-close after 3 seconds
+        setTimeout(() => {
+          onClose();
+          setSubmitStatus("idle");
+        }, 3000);
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+      console.error(error);
+    }
   };
 
   if (!isOpen) return null;
@@ -71,6 +114,41 @@ export default function ContactModal({
             proposal within 24-48 hours.
           </p>
         </div>
+
+        {/* Status Message */}
+        {submitStatus === "success" && (
+          <div className="mb-4 rounded-2xl border border-green-200 bg-green-50 p-4">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="h-5 w-5 shrink-0 text-green-600" />
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-green-900">
+                  Message sent successfully!
+                </h3>
+                <p className="mt-1 text-sm text-green-700">
+                  Thanks for reaching out! We'll review your project details and
+                  get back to you within 24-48 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {submitStatus === "error" && (
+          <div className="mb-4 rounded-2xl border border-red-200 bg-red-50 p-4">
+            <div className="flex items-start gap-3">
+              <XCircle className="h-5 w-5 shrink-0 text-red-600" />
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-red-900">
+                  Something went wrong
+                </h3>
+                <p className="mt-1 text-sm text-red-700">
+                  Please try again or email us directly. We apologize for the
+                  inconvenience.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -235,9 +313,21 @@ export default function ContactModal({
             </button>
             <button
               type="submit"
-              className="flex-1 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-black shadow-md shadow-[rgba(0,0,0,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              disabled={
+                submitStatus === "submitting" || submitStatus === "success"
+              }
+              className="flex-1 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-black shadow-md shadow-[rgba(0,0,0,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
             >
-              Send message
+              {submitStatus === "submitting" ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Sending...
+                </span>
+              ) : submitStatus === "success" ? (
+                "Sent!"
+              ) : (
+                "Send message"
+              )}
             </button>
           </div>
         </form>

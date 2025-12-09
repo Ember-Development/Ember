@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import SplineHero from "../components/SplineHero";
 import HeroFX from "../components/decor/HeroFX";
 import LogoCloud from "../components/sections/LogoCloud";
@@ -19,7 +18,9 @@ export default function Home() {
           {/* your hero title/desc/buttons remain here */}
         </SplineHero>
       </div>
-        <Reveal><LogoCloud /></Reveal>
+      <Reveal>
+        <LogoCloud />
+      </Reveal>
 
       <ServicesSection />
       <ProcessSteps />

@@ -344,7 +344,7 @@ export default function BomberCollectiveHome() {
   return (
     <div className="min-h-screen bg-white text-[var(--color-text-primary)]">
       {/* HERO */}
-      <section className="relative overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8 lg:pt-16">
+      <section className="relative overflow-hidden px-4 pt-4 pb-16 sm:px-6 sm:pt-16 lg:px-8 lg:pt-16">
         <div
           className="pointer-events-none absolute inset-x-0 -top-40 -z-10 h-80 opacity-80"
           style={{
@@ -800,7 +800,7 @@ export default function BomberCollectiveHome() {
             {/* Right: Detail Panel */}
             <div className="flex-1">
               <Reveal>
-                <div className="relative aspect-video overflow-hidden rounded-[28px] border border-black/10 bg-neutral-900 shadow-[0_24px_70px_rgba(0,0,0,0.3)]">
+                <div className="relative min-h-[380px] overflow-hidden rounded-[28px] border border-black/10 bg-neutral-900 shadow-[0_24px_70px_rgba(0,0,0,0.3)] sm:aspect-video sm:min-h-0">
                   {/* Video */}
                   <video
                     key={currentFeature.id}
